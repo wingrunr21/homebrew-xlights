@@ -1,0 +1,28 @@
+name: Check and update xLights release
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+
+jobs:
+  build:
+    name: Update formula
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: "2.x"
+      - name: Cache .bundle
+        uses: actions/cache@preview
+        with:
+          path: .bundle
+          key: ${{ runner.os }}-ruby-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-ruby-
+      - run: |
+          gem install bundler --no-document
+          bundle install --path .bundle
+      - name: Perform formula update
+        run: ruby update_formula.rb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
