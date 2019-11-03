@@ -47,7 +47,7 @@ File.open('Casks/xlights.rb', 'w') do |f|
 end
 
 # Determine if we updated the formula
-git = Git.open('.')
+git = Git.open(ENV['GITHUB_WORKSPACE'])
 if git.diff.stats[:files].key?('Casks/xlights.rb')
   puts "Updating formula for version #{version}..."
 
