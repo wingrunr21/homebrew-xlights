@@ -7,6 +7,11 @@ require 'digest'
 require 'erb'
 require 'git'
 
+unless ENV['GITHUB_ACTION']
+  puts 'This script is intended to run within a Github Action!'
+  exit(1)
+end
+
 XLIGHTS_REGEX = /^xLights/.freeze
 XLIGHTS_VERSION_REGEX = /^xLights-(.*)\.dmg/.freeze
 XLIGHTS_RELEASE_URL = 'https://dankulp.com/xlights/'.freeze
@@ -45,8 +50,17 @@ end
 git = Git.open('.')
 if git.diff.stats[:files].key?('Casks/xlights.rb')
   puts "Updating formula for version #{version}..."
+
+  # Configure git
+  github_actor = ENV['GITHUB_ACTOR']
+  remote_url = "https://#{github_actor}:#{ENV['GITHUB_TOKEN']}@github.com/#{ENV['GITHUB_REPOSITORY']}.git"
+  git.config('user.name', github_actor)
+  git.config('user.email', "#{github_actor}@github.com")
+  git.add_remote('github', remote_url)
+
+  # Update new formula
   git.add('Casks/xlights.rb')
   git.commit("Update xLights to version #{version}")
   git.add_tag(version, annotate: true, message: version)
-  git.push('origin', 'master', tags: true)
+  git.push('github', 'master', tags: true)
 end
