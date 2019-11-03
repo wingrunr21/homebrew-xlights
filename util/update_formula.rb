@@ -56,7 +56,7 @@ if git.diff.stats[:files].key?('Casks/xlights.rb')
   remote_url = "https://#{github_actor}:#{ENV['GITHUB_TOKEN']}@github.com/#{ENV['GITHUB_REPOSITORY']}.git"
   git.config('user.name', github_actor)
   git.config('user.email', "#{github_actor}@github.com")
-  git.add_remote('github', remote_url)
+  git.add_remote('github', remote_url, fetch: true)
 
   # Update new formula
   git.add('Casks/xlights.rb')
