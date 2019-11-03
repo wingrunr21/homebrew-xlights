@@ -60,5 +60,4 @@ if git.diff.stats[:files].key?('Casks/xlights.rb')
   git.add('Casks/xlights.rb')
   git.commit("Update xLights to version #{version}")
   git.add_tag(version, annotate: true, message: version)
-  git.push
 end

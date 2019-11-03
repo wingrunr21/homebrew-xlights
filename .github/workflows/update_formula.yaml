@@ -23,4 +23,6 @@ jobs:
           gem install bundler --no-document
           bundle install --path .bundle
       - name: Perform formula update
-        run: ruby util/update_formula.rb
+        run: |
+          ruby util/update_formula.rb
+          git push --follow-tags
