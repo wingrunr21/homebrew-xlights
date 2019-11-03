@@ -5,6 +5,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'digest'
 require 'erb'
+require 'git'
 
 XLIGHTS_REGEX = /^xLights/.freeze
 XLIGHTS_VERSION_REGEX = /^xLights-(.*)\.dmg/.freeze
@@ -36,8 +37,16 @@ version = latest.match(XLIGHTS_VERSION_REGEX)[1]
 
 # Generate new Formula file
 formula = ERB.new(File.read('template/xlights.erb')).result(binding)
-
-puts "Updating formula for version #{version} with sha256 #{digest}"
 File.open('Casks/xlights.rb', 'w') do |f|
   f.write(formula)
+end
+
+# Determine if we updated the formula
+git = Git.open('.')
+if git.diff.stats[:files].key?('Casks/xlights.rb')
+  puts "Updating formula for version #{version}..."
+  git.add('Casks/xlights.rb')
+  git.commit("Update xLights to version #{version}")
+  git.add_tag(version, annotate: true, message: version)
+  git.push('origin', 'master', tags: true)
 end
