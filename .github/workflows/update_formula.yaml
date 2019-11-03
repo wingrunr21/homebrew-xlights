@@ -24,5 +24,3 @@ jobs:
           bundle install --path .bundle
       - name: Perform formula update
         run: ruby util/update_formula.rb
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
