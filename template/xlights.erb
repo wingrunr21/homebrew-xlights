@@ -1,0 +1,11 @@
+cask 'xlights' do
+  version '<%= version %>'
+  sha256 '<%= digest %>'
+
+  name 'xLights'
+  homepage 'https://xlights.org/'
+  url "http://dankulp.com/xlights/xLights-#{version}.dmg"
+  appcast 'http://dankulp.com/xlights/'
+
+  app 'xLights.app'
+end
