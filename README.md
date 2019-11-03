@@ -6,7 +6,7 @@ This is a Hombrew tap for [xLights](https://xlights.org/). See [smeighan/xLights
 
 ```bash
 brew tap wingrunr21/xlights
-brew install xlights
+brew cask install xlights
 ```
 
 ## Updating
