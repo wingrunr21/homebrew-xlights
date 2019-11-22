@@ -8,7 +8,7 @@ jobs:
     name: Update formula
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1.1
+      - uses: actions/checkout@v1.1.0
       - name: Prepare repository
         run: git checkout "${GITHUB_REF:11}"
       - uses: actions/setup-ruby@v1
