@@ -17,7 +17,7 @@ XLIGHTS_VERSION_REGEX = /^xLights-(.*)\.dmg/.freeze
 XLIGHTS_RELEASE_URL = 'https://dankulp.com/xlights/'.freeze
 
 doc = Nokogiri::HTML(URI.parse(XLIGHTS_RELEASE_URL).read)
-latest = doc.xpath('//pre/a[last()]').first
+latest = doc.xpath('//table/tr/td/a').last
 
 # Determine latest release
 # Note the MacOS builds do not precisely track the Github releases
