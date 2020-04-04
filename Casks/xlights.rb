@@ -1,6 +1,6 @@
 cask 'xlights' do
-  version '2020.13'
-  sha256 'c2d275d4c31e9d1c32fce765e74ed774b455bb55b738e74868d41a9bfba1c792'
+  version '2020.13b'
+  sha256 'e0adb1c19a5e3e7718589e8959ad48d765588002cab3b81a94b9bcc887e2ad8e'
 
   name 'xLights'
   homepage 'https://xlights.org/'
