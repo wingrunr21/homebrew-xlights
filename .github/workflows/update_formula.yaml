@@ -13,7 +13,7 @@ jobs:
         run: git checkout "${GITHUB_REF:11}"
       - uses: actions/setup-ruby@v1
         with:
-          ruby-version: "2.x"
+          ruby-version: "2.7"
       - name: Cache .bundle
         uses: actions/cache@preview
         with:
